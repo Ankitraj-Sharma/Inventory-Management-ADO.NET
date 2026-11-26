@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Inventory Management</title>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+    <header class="navbar">
+        <a href="/Product" class="brand">Inventory Management</a>
+        <div class="nav-links">
+            <a href="/Product">Inventory</a>
+            <a href="/Product/Create">Add Product</a>
+        </div>
+    </header>
+
+    <main class="main-container">
+        @RenderBody()
+
+        <div class="footer-tag">
+            Practical 8 | ADO.NET &amp; CRUD Operations<br />
+            ANKIT RAJ SHARMA | 92400103142 | 5EC1 | Batch A
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+@model InventoryManagement.Models.Product
+@{
+    var action = Model.Id == 0 ? "Create" : "Edit";
+    ViewBag.Title = Model.Id == 0 ? "Add Product" : "Edit Product";
+}
+
+<h1>@ViewBag.Title</h1>
+<p>Enter product details. Price is in INR.</p>
+
+<form action="/Product/@action/@(Model.Id != 0 ? Model.Id.ToString() : "")" method="post" class="panel">
+    @Html.AntiForgeryToken()
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="validation-summary-errors">
+            <p><strong>Please correct the following errors:</strong></p>
+            <ul>
+                @foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="field">
+        <label for="Name">Product Name</label>
+        <input type="text" id="Name" name="Name" value="@Model.Name" maxlength="80" required />
+        <span class="field-validation-error">@Html.ValidationMessageFor(m => m.Name)</span>
+    </div>
+
+    <div class="field">
+        <label for="Category">Category</label>
+        <input type="text" id="Category" name="Category" value="@Model.Category" maxlength="50" required />
+        <span class="field-validation-error">@Html.ValidationMessageFor(m => m.Category)</span>
+    </div>
+
+    <div class="field">
+        <label for="Quantity">Quantity</label>
+        <input type="number" id="Quantity" name="Quantity" value="@Model.Quantity" required />
+        <span class="field-validation-error">@Html.ValidationMessageFor(m => m.Quantity)</span>
+    </div>
+
+    <div class="field">
+        <label for="Price">Price</label>
+        <input type="number" step="0.01" id="Price" name="Price" value="@(Model.Price > 0 ? Model.Price.ToString("0.00") : "0.00")" required />
+        <span class="field-validation-error">@Html.ValidationMessageFor(m => m.Price)</span>
+    </div>
+
+    <button type="submit">Save Product</button>
+    <a href="/Product" class="secondary">Cancel</a>
+</form>
